@@ -1,0 +1,15 @@
+inisin yuzde 80 falan oldu...bir kac hata var onu duzeltmem lazim.
+plane.txt icinde olan her ucak icin dogru calisiyor sadece su asagidaki 8 tane ucaklari boyle cikti
+
+1 25 16 
+1 25 16
+
+3 15 17 
+3 15 17
+
+
+4 22 4 
+3 17 4 
+
+4 28 3 
+2 23 3
