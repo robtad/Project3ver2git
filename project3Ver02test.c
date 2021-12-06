@@ -115,6 +115,15 @@ void delayHandler(plane p)
                         printf("\n\n%d Ucak id'li ucagin inis izin talebi onaylanmistir!", p.planeNo);
                         delayHandler(p);
                     }
+                    if (p.delay == 3)
+                    {
+                        printf("\n%d ucak id'li ucak 3 kere ertelendigi icin,inis izni iptal edilmistir!\n"
+                               "inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor...",
+                               p.planeNo);
+                        printf("\ninfo %d   %d  %d   delay:%d landing request cancelled\n", p.priorityId, p.planeNo, p.landingTime, p.delay);
+                        rear -= 1;
+                        break;
+                    }
                 }
                 else //if plane no of existing plane is greater than new plane
                 {
@@ -195,6 +204,14 @@ void delayHandler(plane p)
                     printf("\n\nlandingTime of %d id plane:%d\n", p.planeNo, p.landingTime);
                     printf("\n\n%d Ucak id'li ucagin inis izin talebi onaylanmistir!", p.planeNo);
                     delayHandler(p);
+                }
+                if (p.delay == 3)
+                {
+                    printf("\n%d ucak id'li ucak 3 kere ertelendigi icin,inis izni iptal edilmistir!\n"
+                               "inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor...",p.planeNo);
+                        printf("\ninfo %d   %d  %d   delay:%d landing request cancelled\n", p.priorityId, p.planeNo, p.landingTime, p.delay);
+                        rear -= 1;
+                        break;
                 }
             }
         }
@@ -284,7 +301,7 @@ void addToPQ(pendingPlane planeP)
                         printf("\nUcak id'si %d olan ucagin ucak id onceligi daha once ayni"
                                "saatte inis talep eden %d \nucak id'li ucaktan yuksek oldugu icin"
                                "%d ucak id'li ucagin inis \nizni iptal edilmistir, inis icin Sabiha Gokcen"
-                               "Havalimani’na yonlendiriliyor...",
+                               "Havalimani\'na yonlendiriliyor...",
                                planeL[rear + 1].planeNo, planeL[j].planeNo, planeL[j].planeNo);
                         planeL[j] = planeL[rear + 1];
                         printf("\n\n%d Ucak id'li ucagin inis izin talebi onaylanmistir!", planeL[j].planeNo);
@@ -294,7 +311,7 @@ void addToPQ(pendingPlane planeP)
                 {
                     printf("\nAcil inis yapmasi gereken %d oncelik id'li ucagi nedeniyle daha once ayni\n"
                            "saatte inis talep eden %d oncelik id'li ucagin inis izni iptal edilmistir,\n inis icin Sabiha Gokcen"
-                           "Havalimani’na yonlendiriliyor...",
+                           "Havalimani\'na yonlendiriliyor...",
                            planeL[rear + 1].priorityId, planeL[j].priorityId);
                     planeL[j] = planeL[rear + 1];
                     printf("\n\n%d Ucak id'li ucagin inis izin talebi onaylanmistir!", planeL[j].planeNo);
