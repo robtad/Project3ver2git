@@ -361,7 +361,7 @@ void writeToOutputFile(plane p)
         fprintf(file, "Oncelik_ID   Ucak_ID   TE_Inis_Saati   Inis_Saati     Gecikme_Suresi   Kalkis_Saati\n");
         flag = 1;
     }
-    fprintf(file, "%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, planeT[1].landingTime + 1);
+    fprintf(file, "%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
     fclose(file);
 }
 
@@ -378,7 +378,7 @@ void pop()
         printf("\nOncelik_ID   Ucak_ID   TE_Inis_Saati   Inis_Saati     Gecikme_Suresi   Kalkis_Saati\n");
         flag3 = 1;
     }
-    printf("\n\n%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, planeT[1].landingTime + 1);
+    printf("\n\n%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
 
     writeToOutputFile(planeT[1]);
     planeT[1] = planeT[count];
@@ -420,7 +420,7 @@ void readInput()
         return;
     }
 
-    fseek(file, 24, SEEK_SET); //to skip the first line in the input.txt file
+    fseek(file, 43, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
     for (int i = 0; i < 28; i++)
     {
         fscanf(file, "%d %d %d", &planeP[i].priorityId, &planeP[i].planeNo, &planeP[i].landingTime);
