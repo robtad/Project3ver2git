@@ -4,14 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
-/*typedef struct planesInFile
-{
-    int priorityId;
-    int planeNo;
-    int landingTime;
-    int delay;
-} pendingPlane;
-pendingPlane planeP[30];*/
+
 const int MAX = 25;
 typedef struct plane
 {
@@ -22,7 +15,6 @@ typedef struct plane
 } plane;
 plane planeL[25];
 plane planeP[28];
-//plane tempo;
 
 int front = -1;
 int rear = -1;
@@ -295,7 +287,7 @@ int main()
     printf("\n\n\n------------------------------------------------------\n");
     int i = 0;
     printf("\nPriority ID   Plane No   Landing Time   Delay\n");
-    while (i < 25)
+    while (i < MAX)
     {
         printf("\n\n%d%*d%*d%*d%*d \n", i, 7, planeL[i].priorityId, 11, planeL[i].planeNo, 13, planeL[i].landingTime, 12, planeL[i].delay);
         // printf("\nrear = %d\n", rear);
