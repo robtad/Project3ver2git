@@ -49,10 +49,10 @@ void delayHandler4Full(plane p)
             }
             else if (planeL[j].priorityId > planeL[rear + 1].priorityId)
             {
-                printf("\nAcil inis yapmasi gereken %d oncelik id'li ucagi nedeniyle daha once ayni\n"
-                       "saatte inis talep eden %d oncelik id'li ucagin inis izni iptal edilmistir,\n inis icin Sabiha Gokcen"
+                printf("\nAcil inis yapmasi gereken %d ucak id'li ucagi nedeniyle daha once ayni\n"
+                       "saatte inis talep eden %d ucak id'li ucagin inis izni iptal edilmistir,\n inis icin Sabiha Gokcen"
                        "Havalimani\'na yonlendiriliyor...\n\n",
-                       planeL[rear + 1].priorityId, planeL[j].priorityId);
+                       planeL[rear + 1].planeNo, planeL[j].planeNo);
                 planeL[j] = planeL[rear + 1];
                 printf("\n\n%d Ucak id'li ucagin inis izin talebi onaylanmistir.\n\n", planeL[j].planeNo);
                 flagM = 0;
@@ -242,14 +242,12 @@ void addToLandingList(plane pp)
     {
         front = rear = 0;
         planeL[rear] = pp;
-        // printf("\n%d    %d      %d      %d  \ninis izin talebi onaylanmistir!\n", planeL[rear].priorityId, planeL[rear].planeNo, planeL[rear].landingTime, planeL[rear].delay);
-        // push(planeL[rear]); //adding to takeoff runway.
 
         return;
     }
     else if (isFull())
     {
-        printf("\nThe PQ is full!\nChecking conditions for emergency landing...\nPlease wait...\n");
+        printf("\nInis pisti kullanim sirasi dolmustur!\nAcil inis kosullari kontrol ediliyor...\nLutfen bekleyin...\n");
         planeL[rear + 1] = pp;
         delayHandler4Full(planeL[rear + 1]);
         return;
@@ -361,7 +359,7 @@ void writeToOutputFile(plane p)
         fprintf(file, "Oncelik_ID   Ucak_ID   TE_Inis_Saati   Inis_Saati     Gecikme_Suresi   Kalkis_Saati\n");
         flag = 1;
     }
-    fprintf(file, "%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
+    fprintf(file, "%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, (((planeT[1].landingTime - 1) % 24) + 1), 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
     fclose(file);
 }
 
@@ -378,7 +376,7 @@ void pop()
         printf("\nOncelik_ID   Ucak_ID   TE_Inis_Saati   Inis_Saati     Gecikme_Suresi   Kalkis_Saati\n");
         flag3 = 1;
     }
-    printf("\n\n%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, planeT[1].landingTime, 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
+    printf("\n\n%*d%*d%*d%*d%*d%*d\n", 6, planeT[1].priorityId, 11, planeT[1].planeNo, 14, planeT[1].landingTime - planeT[1].delay, 14, (((planeT[1].landingTime - 1) % 24) + 1), 17, planeT[1].delay, 16, (((planeT[1].landingTime + 1) - 1) % 24) + 1);
 
     writeToOutputFile(planeT[1]);
     planeT[1] = planeT[count];
@@ -408,7 +406,8 @@ void pushAndPop(int index)
 }
 
 ///////////////////////////////
-
+const int INPUT_FILE_TITLE_LENGTH = 42;
+const int PLANES_IN_INPUT_FILE = 28;
 void readInput()
 {
 
@@ -420,8 +419,8 @@ void readInput()
         return;
     }
 
-    fseek(file, 43, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
-    for (int i = 0; i < 28; i++)
+    fseek(file, INPUT_FILE_TITLE_LENGTH+1, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
+    for (int i = 0; i < PLANES_IN_INPUT_FILE; i++)
     {
         fscanf(file, "%d %d %d", &planeP[i].priorityId, &planeP[i].planeNo, &planeP[i].landingTime);
         planeP[i].delay = 0;
