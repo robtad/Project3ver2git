@@ -427,7 +427,8 @@ void readInput()
     file = fopen("input.txt", "r");
     if (file == NULL)
     {
-        printf("\n  Error! Couldnt open file \n");
+        printf("\n\nHata! \'input.txt\' dosyasi acilamadi! \n");
+        printf("\nLutfen \'input.txt\' dosyasini \'.c\' kod dosyasinin bulundugu dizine ekleyiniz!\n\n\n");
         return;
     }
 
