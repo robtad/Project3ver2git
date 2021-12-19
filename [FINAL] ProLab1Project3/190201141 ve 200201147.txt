@@ -18,19 +18,11 @@ typedef struct plane
     int delay;
 } plane;
 plane planeL[25];
-<<<<<<< HEAD
 plane planeP[28]; //when the number of plane changes this should be updated
 plane planeT[26];
 
 const int PLANES_IN_INPUT_FILE = 10000;  //this program works for number of planes <=10000
 const int INPUT_FILE_TITLE_LENGTH = 42; //update when title length changes.
-=======
-plane planeP[28];//when the number of plane changes this should be updated
-plane planeT[26];
-
-const int PLANES_IN_INPUT_FILE = 28;//update when no of planes changes.
-const int INPUT_FILE_TITLE_LENGTH = 42;//update when title length changes.
->>>>>>> 53f8e21db8a4f6a52c48a87cb98be9199fb42bc9
 
 int flagM = 1;
 int front = -1;
@@ -247,15 +239,9 @@ void delayHandler(plane p)
                         printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
                                " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
                                planeL[rear].planeNo);
-<<<<<<< HEAD
 
                         printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
 
-=======
-
-                        printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
-
->>>>>>> 53f8e21db8a4f6a52c48a87cb98be9199fb42bc9
                         rear -= 1;
                         flagM = 0;
                         return;
@@ -504,10 +490,6 @@ void pushAndPop(int index)
 }
 
 ///////////////////////////////
-<<<<<<< HEAD
-=======
-
->>>>>>> 53f8e21db8a4f6a52c48a87cb98be9199fb42bc9
 
 void readInput()
 {
