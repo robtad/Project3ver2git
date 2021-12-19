@@ -22,7 +22,7 @@ plane planeP[1]; //when the input file is being read line by line(i.e., one plan
 plane planeT[26];
 
 const int PLANES_IN_INPUT_FILE = 10000; //this program works for number of planes <=10000
-const int INPUT_FILE_TITLE_LENGTH = 42; //update when title length changes.
+//const int INPUT_FILE_TITLE_LENGTH = 42; //update when title length changes.
 
 int flagM = 1;
 int front = -1;
@@ -493,7 +493,7 @@ void pushAndPop(int index)
 
 void readInput()
 {
-
+    char buff[100];
     FILE *file;
     file = fopen("input.txt", "r");
     if (file == NULL)
@@ -503,9 +503,12 @@ void readInput()
         return;
     }
 
-    fseek(file, INPUT_FILE_TITLE_LENGTH + 1, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
-
-    int c = getc(file); //used to check end of file
+    fgets(buff, 100, file);
+    int c;
+    //fseek(file, INPUT_FILE_TITLE_LENGTH + 1, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
+    //printf("%s", buff);
+    //int c = getc(file); //used to check end of file
+    
     for (int i = 0; i < PLANES_IN_INPUT_FILE; i++)
     {
         if (c == EOF)
