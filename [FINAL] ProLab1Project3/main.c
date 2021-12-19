@@ -18,10 +18,10 @@ typedef struct plane
     int delay;
 } plane;
 plane planeL[25];
-plane planeP[28]; //when the number of plane changes this should be updated
+plane planeP[1]; //when the input file is being read line by line(i.e., one plane at a time), planeP holds that one pending plane for a moment.
 plane planeT[26];
 
-const int PLANES_IN_INPUT_FILE = 10000;  //this program works for number of planes <=10000
+const int PLANES_IN_INPUT_FILE = 10000; //this program works for number of planes <=10000
 const int INPUT_FILE_TITLE_LENGTH = 42; //update when title length changes.
 
 int flagM = 1;
@@ -512,13 +512,13 @@ void readInput()
         {
             break;
         }
-        fscanf(file, "%d %d %d", &planeP[i].priorityId, &planeP[i].planeNo, &planeP[i].landingTime);
-        planeP[i].delay = 0;
+        fscanf(file, "%d %d %d", &planeP[0].priorityId, &planeP[0].planeNo, &planeP[0].landingTime);
+        planeP[0].delay = 0;
         printf("\ninput.txt dosyasi okunuyor...");
         printf("\n\nOncelik_ID   Ucak_ID   TE_Inis_Saati\n");
-        printf("\n%*d%*d%*d\n", 6, planeP[i].priorityId, 11, planeP[i].planeNo, 12, planeP[i].landingTime);
+        printf("\n%*d%*d%*d\n", 6, planeP[0].priorityId, 11, planeP[0].planeNo, 12, planeP[0].landingTime);
 
-        addToLandingList(planeP[i]);
+        addToLandingList(planeP[0]);
         if (flagM)
         {
             printf("Inis izin talebiniz onaylanmistir.\n\n\n");
