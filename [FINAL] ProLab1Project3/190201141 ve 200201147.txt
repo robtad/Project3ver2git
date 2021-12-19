@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <stdbool.h>
+//#include <windows.h>
 //#include <string.h>
 //#include <math.h>
-#include <stdbool.h>
 
 //ROBERA TADESSE GOBOSHO(ID: 190201141)
 //MUHAMMAD ABDAN SYAKURA(ID: 200201147)
 
 const int MAX = 25;
 const int CAPACITY = 26;
+
 typedef struct plane
 {
     int priorityId;
@@ -17,11 +18,12 @@ typedef struct plane
     int landingTime;
     int delay;
 } plane;
+
 plane planeL[25];
-plane planeP[1]; //when the input file is being read line by line(i.e., one plane at a time), planeP holds that one pending plane for a moment.
+plane planeP; //when the input file is being read line by line(i.e., one plane at a time), planeP holds that one pending plane for a moment.
 plane planeT[26];
 
-const int PLANES_IN_INPUT_FILE = 10000; //this program works for number of planes <=10000
+//const int PLANES_IN_INPUT_FILE = 10000; //this program works for number of planes <=10000
 //const int INPUT_FILE_TITLE_LENGTH = 42; //update when title length changes.
 
 int flagM = 1;
@@ -38,7 +40,7 @@ void delayHandler4Full(plane p)
             {
                 if (planeL[j].planeNo <= planeL[rear + 1].planeNo)
                 {
-                    printf("\nDaha once ayni saatte inis talep eden ucaktan daha\nyuksek onceliginiz"
+                    printf("\nDaha once ayni saatte inis talep eden ucaktan daha\nyuksek onceliginiz "
                            "olmadigi icin,inis izni verilememektedir.\n\n");
                     flagM = 0;
                 }
@@ -46,7 +48,7 @@ void delayHandler4Full(plane p)
                 {
                     printf("\nUcak id'si %d olan ucagin ucak id onceligi daha once ayni"
                            "saatte inis talep eden %d \nucak id'li ucaktan yuksek oldugu icin"
-                           "%d ucak id'li ucagin inis \nizni iptal edilmistir, inis icin Sabiha Gokcen"
+                           "%d ucak id'li ucagin inis \nizni iptal edilmistir, inis icin Sabiha Gokcen "
                            "Havalimani\'na yonlendiriliyor...\n\n",
                            planeL[rear + 1].planeNo, planeL[j].planeNo, planeL[j].planeNo);
                     planeL[j] = planeL[rear + 1];
@@ -57,7 +59,7 @@ void delayHandler4Full(plane p)
             else if (planeL[j].priorityId > planeL[rear + 1].priorityId)
             {
                 printf("\nAcil inis yapmasi gereken %d ucak id'li ucagi nedeniyle daha once ayni\n"
-                       "saatte inis talep eden %d ucak id'li ucagin inis izni iptal edilmistir,\n inis icin Sabiha Gokcen"
+                       "saatte inis talep eden %d ucak id'li ucagin inis izni iptal edilmistir,\n inis icin Sabiha Gokcen "
                        "Havalimani\'na yonlendiriliyor...\n\n",
                        planeL[rear + 1].planeNo, planeL[j].planeNo);
                 planeL[j] = planeL[rear + 1];
@@ -66,7 +68,7 @@ void delayHandler4Full(plane p)
             }
             else //if priority id of the existing plane is smaller than the new plane
             {
-                printf("\nDaha once ayni saatte inis talep eden ucaktan daha yuksek\n onceliginiz"
+                printf("\nDaha once ayni saatte inis talep eden ucaktan daha yuksek\n onceliginiz "
                        "olmadigi icin,inis izni verilememektedir.\n\n");
                 flagM = 0;
             }
@@ -468,7 +470,7 @@ void pop()
     downMinHeap(1);
 }
 
-void pushAndPop(int index)
+void pushAndPop()
 {
     count = 0;
     int x = 0, y = 0;
@@ -505,28 +507,25 @@ void readInput()
 
     fgets(buff, 100, file);
     int c;
-    //fseek(file, INPUT_FILE_TITLE_LENGTH + 1, SEEK_SET); //to skip the first line in the input.txt file//be careful, it depends on the no of characters in the first line
-    //printf("%s", buff);
-    //int c = getc(file); //used to check end of file
-    
-    for (int i = 0; i < PLANES_IN_INPUT_FILE; i++)
+
+    while (1)
     {
         if (c == EOF)
         {
             break;
         }
-        fscanf(file, "%d %d %d", &planeP[0].priorityId, &planeP[0].planeNo, &planeP[0].landingTime);
-        planeP[0].delay = 0;
+        fscanf(file, "%d %d %d", &planeP.priorityId, &planeP.planeNo, &planeP.landingTime);
+        planeP.delay = 0;
         printf("\ninput.txt dosyasi okunuyor...");
         printf("\n\nOncelik_ID   Ucak_ID   TE_Inis_Saati\n");
-        printf("\n%*d%*d%*d\n", 6, planeP[0].priorityId, 11, planeP[0].planeNo, 12, planeP[0].landingTime);
+        printf("\n%*d%*d%*d\n", 6, planeP.priorityId, 11, planeP.planeNo, 12, planeP.landingTime);
 
-        addToLandingList(planeP[0]);
+        addToLandingList(planeP);
         if (flagM)
         {
             printf("Inis izin talebiniz onaylanmistir.\n\n\n");
         }
-        pushAndPop(i);
+        pushAndPop();
         printf("\n------------------------------------------------------------------------------------\n");
         printf("output.txt dosyasi guncellendi!\n\n");
         flagM = 1;
