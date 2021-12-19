@@ -18,8 +18,12 @@ typedef struct plane
     int delay;
 } plane;
 plane planeL[25];
-plane planeP[28];
+plane planeP[28];//when the number of plane changes this should be updated
 plane planeT[26];
+
+const int PLANES_IN_INPUT_FILE = 28;//update when no of planes changes.
+const int INPUT_FILE_TITLE_LENGTH = 42;//update when title length changes.
+
 int flagM = 1;
 int front = -1;
 int rear = -1;
@@ -89,6 +93,20 @@ void delayHandler(plane p)
                         planeL[rear] = tempo;
                         planeL[rear].landingTime += 1;
                         planeL[rear].delay += 1;
+                        /////////////
+                        if (planeL[rear].landingTime > 24)
+                        {
+                            printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                   " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   planeL[rear].planeNo);
+
+                            printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        /////////////
                         delayHandler(planeL[rear]);
                     }
                     else if (planeL[i].delay == 3)
@@ -97,6 +115,17 @@ void delayHandler(plane p)
                         {
                             planeL[rear].landingTime += 1;
                             planeL[rear].delay += 1;
+                            /////////////
+                            if (planeL[rear].landingTime > 24)
+                            {
+                                printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                       " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                       planeL[rear].planeNo);
+                                rear -= 1;
+                                flagM = 0;
+                                return;
+                            }
+                            /////////////
                             delayHandler(planeL[rear]);
                         }
                         else if (p.delay == 3)
@@ -127,6 +156,17 @@ void delayHandler(plane p)
                     {
                         planeL[rear].landingTime += 1;
                         planeL[rear].delay += 1;
+                        /////////////
+                        if (planeL[rear].landingTime > 24)
+                        {
+                            printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                   " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   planeL[rear].planeNo);
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        /////////////
 
                         delayHandler(planeL[rear]);
                     }
@@ -154,7 +194,17 @@ void delayHandler(plane p)
                 {
                     planeL[rear].landingTime += 1;
                     planeL[rear].delay += 1;
-
+                    /////////////
+                    if (planeL[rear].landingTime > 24)
+                    {
+                        printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                               " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                               planeL[rear].planeNo);
+                        rear -= 1;
+                        flagM = 0;
+                        return;
+                    }
+                    /////////////
                     delayHandler(planeL[rear]);
                 }
                 else if (p.delay == 3) //if-else if
@@ -183,7 +233,20 @@ void delayHandler(plane p)
                     planeL[rear] = tempo;
                     planeL[rear].landingTime += 1;
                     planeL[rear].delay += 1;
+                    /////////////
+                    if (planeL[rear].landingTime > 24)
+                    {
+                        printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                               " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                               planeL[rear].planeNo);
 
+                        printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                        rear -= 1;
+                        flagM = 0;
+                        return;
+                    }
+                    /////////////
                     delayHandler(planeL[rear]);
                 }
                 else if (planeL[i].delay == 3) //if-else if
@@ -192,7 +255,17 @@ void delayHandler(plane p)
                     {
                         planeL[rear].landingTime += 1;
                         planeL[rear].delay += 1;
-
+                        /////////////
+                        if (planeL[rear].landingTime > 24)
+                        {
+                            printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                   " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   planeL[rear].planeNo);
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        /////////////
                         delayHandler(planeL[rear]);
                     }
                     else if (p.delay == 3) //if-else if
@@ -417,8 +490,7 @@ void pushAndPop(int index)
 }
 
 ///////////////////////////////
-const int INPUT_FILE_TITLE_LENGTH = 42;
-const int PLANES_IN_INPUT_FILE = 28;
+
 
 void readInput()
 {
