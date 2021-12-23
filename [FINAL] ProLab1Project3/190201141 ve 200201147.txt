@@ -20,7 +20,7 @@ typedef struct plane
 } plane;
 
 plane planeL[25];
-plane planeP; //when the input file is being read line by line(i.e., one plane at a time), planeP holds that one pending plane for a moment.
+plane planeP; //when the input file is being read line by line(i.e., one plane at a time) planeP holds that one pending plane for a moment.
 plane planeT[26];
 
 //const int PLANES_IN_INPUT_FILE = 10000; //this program works for number of planes <=10000
@@ -133,12 +133,38 @@ void delayHandler(plane p)
                         else if (p.delay == 3)
                         {
                             //printf("\ndelay:%d -->go to Sabiha Airport\n", p.delay);
-                            printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
-                                   "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
-                                   p.planeNo);
-                            rear -= 1;
-                            flagM = 0;
-                            return;
+                            if (p.planeNo > planeL[i].planeNo)
+                            {
+                                printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
+                                       "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                       p.planeNo);
+                                rear -= 1;
+                                flagM = 0;
+                                return;
+                            }
+                            if (p.planeNo < planeL[i].planeNo)
+                            {
+                                tempo = planeL[i];
+                                planeL[i] = p;
+                                planeL[rear] = tempo;
+                                planeL[rear].landingTime += 1;
+                                planeL[rear].delay += 1;
+                                /////////////
+                                if (planeL[rear].landingTime > 24)
+                                {
+                                    printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                           " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                           planeL[rear].planeNo);
+
+                                    printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                                    rear -= 1;
+                                    flagM = 0;
+                                    return;
+                                }
+                                /////////////
+                                delayHandler(planeL[rear]);
+                            }
                         }
                         else
                         {
@@ -175,12 +201,38 @@ void delayHandler(plane p)
                     else if (p.delay == 3) //if-else if
                     {
                         //printf("\ndelay:%d -->go to Sabiha Airport\n", p.delay);
-                        printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
-                               "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
-                               p.planeNo);
-                        rear -= 1;
-                        flagM = 0;
-                        return;
+                        if (p.planeNo > planeL[i].planeNo)
+                        {
+                            printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
+                                   "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   p.planeNo);
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        if (p.planeNo < planeL[i].planeNo)
+                        {
+                            tempo = planeL[i];
+                            planeL[i] = p;
+                            planeL[rear] = tempo;
+                            planeL[rear].landingTime += 1;
+                            planeL[rear].delay += 1;
+                            /////////////
+                            if (planeL[rear].landingTime > 24)
+                            {
+                                printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                       " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                       planeL[rear].planeNo);
+
+                                printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                                rear -= 1;
+                                flagM = 0;
+                                return;
+                            }
+                            /////////////
+                            delayHandler(planeL[rear]);
+                        }
                     }
                     else
                     {
@@ -212,12 +264,38 @@ void delayHandler(plane p)
                 else if (p.delay == 3) //if-else if
                 {
                     // printf("\ndelay:%d -->go to Sabiha Airport\n", p.delay);
-                    printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
-                           "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
-                           p.planeNo);
-                    rear -= 1;
-                    flagM = 0;
-                    return;
+                    if (p.planeNo > planeL[i].planeNo)
+                    {
+                        printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
+                               "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                               p.planeNo);
+                        rear -= 1;
+                        flagM = 0;
+                        return;
+                    }
+                    if (p.planeNo < planeL[i].planeNo)
+                    {
+                        tempo = planeL[i];
+                        planeL[i] = p;
+                        planeL[rear] = tempo;
+                        planeL[rear].landingTime += 1;
+                        planeL[rear].delay += 1;
+                        /////////////
+                        if (planeL[rear].landingTime > 24)
+                        {
+                            printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                   " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   planeL[rear].planeNo);
+
+                            printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        /////////////
+                        delayHandler(planeL[rear]);
+                    }
                 }
                 else
                 {
@@ -273,12 +351,38 @@ void delayHandler(plane p)
                     else if (p.delay == 3) //if-else if
                     {
                         // printf("\ndelay:%d -->go to Sabiha Airport\n", p.delay);
-                        printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
-                               "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
-                               p.planeNo);
-                        rear -= 1;
-                        flagM = 0;
-                        return;
+                        if (p.planeNo > planeL[i].planeNo)
+                        {
+                            printf("\n%d id'li ucak 3 kez ertelenmistir ve inis pisti kullanim sirasinda\n"
+                                   "   uygun yer bulunamadi, inis icin Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                   p.planeNo);
+                            rear -= 1;
+                            flagM = 0;
+                            return;
+                        }
+                        if (p.planeNo < planeL[i].planeNo)
+                        {
+                            tempo = planeL[i];
+                            planeL[i] = p;
+                            planeL[rear] = tempo;
+                            planeL[rear].landingTime += 1;
+                            planeL[rear].delay += 1;
+                            /////////////
+                            if (planeL[rear].landingTime > 24)
+                            {
+                                printf("%d ucak id'li ucagin ucusu ertelenmeden dolayi ertesi gune gectigi icin,\n"
+                                       " Sabiha Gokcen Havalimani\'na yonlendiriliyor.\n\n",
+                                       planeL[rear].planeNo);
+
+                                printf("\n%d ucak id'li ucagin inis izin talebi onaylanmistir.\n\n\n", planeL[i].planeNo);
+
+                                rear -= 1;
+                                flagM = 0;
+                                return;
+                            }
+                            /////////////
+                            delayHandler(planeL[rear]);
+                        }
                     }
                     else
                     {
